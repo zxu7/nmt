@@ -1,10 +1,16 @@
 from utils.utils import load_sgm, Preprocess, WordVector
 from model.models import simpleNMT
 from keras.preprocessing.sequence import pad_sequences
+from keras.optimizers import Adam
+
+# set variables
+amax = False
+
+data_dir = '/Users/harryxu/school/data/ai_challenger_translation_validation_20170912/translation_validation_20170912/'
+if amax:
+    data_dir = '/home/harry/data/ai_challenger_mt/ai_challenger_translation_validation_20170912/translation_validation_20170912/'
 
 # load data
-data_dir = '/Users/harryxu/school/data/ai_challenger_translation_validation_20170912/translation_validation_20170912/'
-
 en_path = data_dir + 'valid.en-zh.en.sgm'
 cn_path = data_dir + 'valid.en-zh.zh.sgm'
 en_data = load_sgm(en_path)
@@ -26,15 +32,17 @@ print(cn_mat.shape)
 
 # fit model
 model = simpleNMT(pad_length=preprocessor.cn_maxlen,
-                  n_voc_in=cn_mat.shape[0],
-                  d_voc_in=cn_mat.shape[1],
-                  n_labels=en_mat.shape[1],
+                  n_voc_in=en_mat.shape[0],
+                  d_voc_in=en_mat.shape[1],
+                  n_labels=cn_mat.shape[0],
                   embedding_learnable=True,
                   encoder_units=2,
                   decoder_units=2,
                   trainable=True,
                   return_probabilities=False,
                   weights=None)
-
+model.compile(optimizer=Adam(1e-2),
+              loss='categorical_crossentropy',
+              metrics=['accuracy'])
 model.fit(a2, a1)
 
