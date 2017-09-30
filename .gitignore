@@ -1,6 +1,6 @@
 # mac
 **/.DS_Store
-**/.idea
+.idea/**
 
 # ipynb
 **/.ipynb_checkpoints
