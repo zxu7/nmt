@@ -7,8 +7,12 @@ from keras.optimizers import Adam
 amax = False
 
 data_dir = '/Users/harryxu/school/data/ai_challenger_translation_validation_20170912/translation_validation_20170912/'
+en_wv_path = '/Users/harryxu/NLP/glove/glove.6B.100d.txt'
+cn_wv_path = '/Users/harryxu/NLP/glove/kdxf.txt'
 if amax:
     data_dir = '/home/harry/data/ai_challenger_mt/ai_challenger_translation_validation_20170912/translation_validation_20170912/'
+    en_wv_path = '/home/ligang/ae/ae-server/ae/backenddev/AlgPlugins/resources/glove/glove.6B.50d.txt'
+    cn_wv_path = '/home/harry/NLP/GloVe/vectors.txt'
 
 # load data
 en_path = data_dir + 'valid.en-zh.en.sgm'
@@ -24,8 +28,6 @@ a1 = pad_sequences(a1, preprocessor.en_maxlen, padding="post", truncating="post"
 a2 = pad_sequences(a2, preprocessor.cn_maxlen, padding="post", truncating="post")
 
 # load word vectors
-en_wv_path = '/Users/harryxu/NLP/glove/glove.6B.100d.txt'
-cn_wv_path = '/Users/harryxu/NLP/glove/kdxf.txt'
 WV = WordVector(preprocessor.en_dict, preprocessor.cn_dict)
 en_mat, cn_mat = WV.to_matrix(en_wv_path, cn_wv_path)
 print(cn_mat.shape)
