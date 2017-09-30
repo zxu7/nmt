@@ -1,9 +1,10 @@
 # mac
 **/.DS_Store
-
+**/.idea/
 
 # ipynb
 **/.ipynb_checkpoints
 
 # pycache
 **/__pycache__/
+
